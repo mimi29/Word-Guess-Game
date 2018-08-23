@@ -1,9 +1,11 @@
 var wordGame = ["pepsi", "gatorade", "aquafina", "tropicana"];
 
-var totalGuessAllow, winCounter, wrongCount = 0;
 var wrongGuesses;
 var correctGuesses;
 var word;
+var winCounter = 0;  
+var lossCounter = 0;
+var totalGuessAllow = 0;
 var wordElement = document.getElementById('word-blanks');
 var winCounterElement = document.getElementById('win-counter');
 var lossCounterElement = document.getElementById('loss-counter');
@@ -12,13 +14,9 @@ var wrongGuessElement = document.getElementById('wrong-guesses');
 var userTextElement = document.getElementById('user-text');
 
 function setUp() {
-    totalGuessAllow = 10;
     var index = Math.floor(Math.random() * wordGame.length);
     word = wordGame[index];
-
     totalGuessAllow = 10;
-    winCounter = 0;   // what is winCounter 
-    lossCounter = 0;
     wrongGuesses = [];
     correctGuesses = [];
 
@@ -27,11 +25,29 @@ function setUp() {
         correctGuesses.push('_');
     }
 
-    console.log(correctGuesses);
     wordElement.innerHTML = correctGuesses.join(' ');
-    //wordElement.innerHTML = correctGuesses;
     guessesLeftElement.innerHTML = totalGuessAllow;
     wrongGuessElement.innerHTML = wrongGuesses;
+    userTextElement.innerHTML = "...";
+}
+
+function updateStatus() {
+   if (correctGuesses.indexOf('_') == -1) {
+       winCounter++;
+       winCounterElement.innerHTML = winCounter;
+       var ans = confirm("You win! Play it again?");
+       if (ans) {
+           setUp();
+       }
+   }
+   else if (totalGuessAllow == 0) {
+       lossCounter++;
+       lossCounterElement.innerHTML = lossCounter;
+       var ans = confirm("You loose... Play it again?");
+       if (ans) {
+           setUp();
+       }
+   }  
 }
 
 // Next, we give JavaScript a function to execute when onkeyup event fires.
@@ -41,21 +57,19 @@ document.onkeyup = function (event) {
     totalGuessAllow = totalGuessAllow - 1;
     guessesLeftElement.innerHTML = totalGuessAllow;
 
-    if (word.indexOf(letter) === -1) {
+    if (word.indexOf(letter) === -1) {  // guess wrong
         wrongGuesses.push(letter); // update letters guessed
         wrongGuessElement.innerHTML = wrongGuesses.join(', ');
-        lossCounter += 1;
-        // lossCounterElement.innerHTML = lossCounter;
-    } else { // letter IS in the word
-        // replace underscore with the letter
+    } 
+    else {   // guess right
         for (var i = 0; i < word.length; i++) {
             if (word[i] === letter) {
                 correctGuesses[i] = letter;
             }
         }
-        // wrongguessElement.innerHTML = wrongCounter;
         wordElement.innerHTML = correctGuesses.join(' ');
     }
+    updateStatus();
 
 };
 
