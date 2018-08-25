@@ -20,7 +20,6 @@ function setUp() {
     wrongGuesses = [];
     correctGuesses = [];
 
-    // initialize correctGuesses array with underscores
     for (var i = 0; i < word.length; i++) {
         correctGuesses.push('_');
     }

@@ -1,0 +1,9 @@
+body {
+    background-color:#36524e;
+    width: 750px;
+    margin: 0 auto;
+}
+
+.card  {
+    text-align: center !important;
+}
