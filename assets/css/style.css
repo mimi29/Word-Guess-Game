@@ -4,6 +4,12 @@ body {
     margin: 0 auto;
 }
 
+
+#user-text {
+    color: red;
+    font-weight: bold;
+}
+
 .card  {
     text-align: center !important;
 }
