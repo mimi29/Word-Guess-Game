@@ -1,9 +1,9 @@
 body {
     background-color:#36524e;
     width: 750px;
-    margin: 0 auto;
+    margin: auto;
+    margin-top: 20px;
 }
-
 
 #user-text {
     color: red;
@@ -12,4 +12,8 @@ body {
 
 .card  {
     text-align: center !important;
+}
+
+.jumbotron {
+    color: brown !important;
 }

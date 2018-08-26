@@ -46,19 +46,22 @@ function updateStatus() {
        if (ans) {
            setUp();
        }
-   }  
+   } 
+   else {
+       guessesLeftElement.innerHTML = totalGuessAllow;
+   } 
 }
 
 // Next, we give JavaScript a function to execute when onkeyup event fires.
 document.onkeyup = function (event) {
     var letter = String.fromCharCode(event.keyCode).toLowerCase();
-    userTextElement.innerHTML = letter;
-    totalGuessAllow = totalGuessAllow - 1;
+    userTextElement.innerHTML = letter;   
     guessesLeftElement.innerHTML = totalGuessAllow;
 
-    if (word.indexOf(letter) === -1) {  // guess wrong
+    if (word.indexOf(letter) == -1) {  // guess wrong
         wrongGuesses.push(letter); // update letters guessed
         wrongGuessElement.innerHTML = wrongGuesses.join(', ');
+        totalGuessAllow = totalGuessAllow - 1;
     } 
     else {   // guess right
         for (var i = 0; i < word.length; i++) {
